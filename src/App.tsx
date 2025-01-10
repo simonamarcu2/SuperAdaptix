@@ -58,6 +58,20 @@ function App() {
         start: '2024-05-11 01:00',
         end: '2024-05-11 12:00',
         resourceId: '2'
+      },
+      {
+        id: uuidv4(),
+        title: 'Course 1',
+        start: '2024-05-12 09:00',
+        end: '2024-05-12 11:00',
+        resourceId: '1'
+      },
+      {
+        id: uuidv4(),
+        title: 'Course 2',
+        start: '2024-05-12 13:00',
+        end: '2024-05-12 15:00',
+        resourceId: '2'
       }
     ],
     selectedDate: '2024-05-11',
@@ -67,7 +81,7 @@ function App() {
   })
 
   return (
-    <div>
+    <div className="sx-react-calendar-wrapper">
       <ScheduleXCalendar calendarApp={calendar} />
     </div>
   )
