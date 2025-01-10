@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@schedule-x/calendar": "^2.6.0",
+    "@schedule-x/calendar": "^2.13.0",
     "@schedule-x/events-service": "^2.6.0",
     "@schedule-x/react": "^2.5.0",
     "@schedule-x/theme-default": "^2.6.0",
