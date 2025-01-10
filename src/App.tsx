@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import './App.css'
 import {ScheduleXCalendar, useCalendarApp} from "@schedule-x/react";
 import { v4 as uuidv4 } from 'uuid';
-import { createDailyView, createHourlyView, createConfig } from '@sx-premium/resource-scheduler'
+import { createDailyView, createHourlyView, createConfig, createMultiMonthView } from '@sx-premium/resource-scheduler'
 
 import '@schedule-x/theme-default/dist/index.css'
 import '@sx-premium/resource-scheduler/index.css'
@@ -12,8 +12,7 @@ function App() {
   const eventsServicePlugin = useState(() => createEventsServicePlugin())[0];
 
   const resourceViewConfig = useState(() => createConfig())[0]
-  const hourlyView = useState(() => createHourlyView(resourceViewConfig))[0]
-  const dailyView = useState(() => createDailyView(resourceViewConfig))[0]
+  const multiMonthView = useState(() => createMultiMonthView(resourceViewConfig, { months: 3 }))[0]
 
   useEffect(() => {
     resourceViewConfig.resources.value = [
@@ -41,36 +40,36 @@ function App() {
 
   const calendar = useCalendarApp({
     views: [
-      hourlyView,
-      dailyView
+      multiMonthView
     ],
     events: [
       {
         id: uuidv4(),
-        title: 'Course 1',
-        start: '2025-01-10 04:00',
-        end: '2025-01-10 06:00',
+        title: 'Phyton course',
+        start: new Date().toISOString().split('T')[0] + ' 04:00',
+        end: new Date().toISOString().split('T')[0] + ' 06:00',
         resourceId: '1'
       },
       {
         id: uuidv4(),
-        title: 'flash Event 2',
-        start: '2025-01-10 01:00',
-        end: '2025-01-10 12:00',
+
+        title: 'Flash Event 2',
+        start: new Date().toISOString().split('T')[0] + ' 01:00',
+        end: new Date().toISOString().split('T')[0] + ' 12:00',
         resourceId: '2'
       },
       {
         id: uuidv4(),
         title: 'Master Course 1',
-        start: '2025-01-12 09:00',
-        end: '2025-01-12 11:00',
+        start: new Date().toISOString().split('T')[0] + ' 09:00',
+        end: new Date().toISOString().split('T')[0] + ' 11:00',
         resourceId: '1'
       },
       {
         id: uuidv4(),
         title: 'Master Course 2',
-        start: '2025-01-12 13:00',
-        end: '2025-01-12 15:00',
+        start: new Date().toISOString().split('T')[0] + ' 13:00',
+        end: new Date().toISOString().split('T')[0] + ' 15:00',
         resourceId: '2'
       },
       {
@@ -81,7 +80,7 @@ function App() {
         resourceId: '1'
       }
     ],
-    selectedDate: '2025-01-10',
+    selectedDate: new Date().toISOString().split('T')[0],
     plugins: [
       eventsServicePlugin,
     ]
