@@ -17,11 +17,11 @@ function App() {
   useEffect(() => {
     resourceViewConfig.resources.value = [
       {
-        label: 'Room 100',
+        label: 'Course Phyton',
         id: '1'
       },
       {
-        labelHTML: '<span>Room <strong>101</strong></span>',
+        labelHTML: '<span>Course <strong>Phyton</strong></span>',
         id: '2',
         colorName: 'room-101',
         lightColors: {
@@ -45,31 +45,39 @@ function App() {
     events: [
       {
         id: uuidv4(),
-        title: 'Event 1',
+        title: 'Phyton course',
         start: new Date().toISOString().split('T')[0] + ' 04:00',
         end: new Date().toISOString().split('T')[0] + ' 06:00',
         resourceId: '1'
       },
       {
         id: uuidv4(),
-        title: 'Event 2',
+
+        title: 'Flash Event 2',
         start: new Date().toISOString().split('T')[0] + ' 01:00',
         end: new Date().toISOString().split('T')[0] + ' 12:00',
         resourceId: '2'
       },
       {
         id: uuidv4(),
-        title: 'Course 1',
+        title: 'Master Course 1',
         start: new Date().toISOString().split('T')[0] + ' 09:00',
         end: new Date().toISOString().split('T')[0] + ' 11:00',
         resourceId: '1'
       },
       {
         id: uuidv4(),
-        title: 'Course 2',
+        title: 'Master Course 2',
         start: new Date().toISOString().split('T')[0] + ' 13:00',
         end: new Date().toISOString().split('T')[0] + ' 15:00',
         resourceId: '2'
+      },
+      {
+        id: uuidv4(),
+        title: 'Cybersecurity Course 3',
+        start: '2025-01-12 16:00',
+        end: '2025-01-12 18:00',
+        resourceId: '1'
       }
     ],
     selectedDate: new Date().toISOString().split('T')[0],
