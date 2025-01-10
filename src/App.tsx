@@ -18,11 +18,11 @@ function App() {
   useEffect(() => {
     resourceViewConfig.resources.value = [
       {
-        label: 'Room 100',
+        label: 'Course Phyton',
         id: '1'
       },
       {
-        labelHTML: '<span>Room <strong>101</strong></span>',
+        labelHTML: '<span>Course <strong>Phyton</strong></span>',
         id: '2',
         colorName: 'room-101',
         lightColors: {
@@ -47,34 +47,41 @@ function App() {
     events: [
       {
         id: uuidv4(),
-        title: 'Event 1',
-        start: '2024-05-11 04:00',
-        end: '2024-05-11 06:00',
-        resourceId: '1'
-      },
-      {
-        id: uuidv4(),
-        title: 'Event 2',
-        start: '2024-05-11 01:00',
-        end: '2024-05-11 12:00',
-        resourceId: '2'
-      },
-      {
-        id: uuidv4(),
         title: 'Course 1',
-        start: '2024-05-12 09:00',
-        end: '2024-05-12 11:00',
+        start: '2025-01-10 04:00',
+        end: '2025-01-10 06:00',
         resourceId: '1'
       },
       {
         id: uuidv4(),
-        title: 'Course 2',
-        start: '2024-05-12 13:00',
-        end: '2024-05-12 15:00',
+        title: 'flash Event 2',
+        start: '2025-01-10 01:00',
+        end: '2025-01-10 12:00',
         resourceId: '2'
+      },
+      {
+        id: uuidv4(),
+        title: 'Master Course 1',
+        start: '2025-01-12 09:00',
+        end: '2025-01-12 11:00',
+        resourceId: '1'
+      },
+      {
+        id: uuidv4(),
+        title: 'Master Course 2',
+        start: '2025-01-12 13:00',
+        end: '2025-01-12 15:00',
+        resourceId: '2'
+      },
+      {
+        id: uuidv4(),
+        title: 'Cybersecurity Course 3',
+        start: '2025-01-12 16:00',
+        end: '2025-01-12 18:00',
+        resourceId: '1'
       }
     ],
-    selectedDate: '2024-05-11',
+    selectedDate: '2025-01-10',
     plugins: [
       eventsServicePlugin,
     ]
