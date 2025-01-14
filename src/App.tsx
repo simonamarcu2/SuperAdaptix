@@ -1,104 +1,109 @@
-import {  useState } from 'react'
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import './App.css'
-
+import './App.css';
 import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
-import '@schedule-x/theme-default/dist/index.css'
-import '@sx-premium/resource-scheduler/index.css'
+import '@schedule-x/theme-default/dist/index.css';
 import { createEventsServicePlugin } from "@schedule-x/events-service";
-import { viewWeek, viewMonthAgenda, createViewMonthGrid, createViewMonthAgenda, CalendarApp } from '@schedule-x/calendar';
-import { createEventModalPlugin } from '@schedule-x/event-modal'
-import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
-
-// const MyCustomDateGridEvent: CustomComponentFn = (wrapperElement, props) => {
-//   // Your custom logic here
-  
-//   wrapperElement.innerHTML = `<div>Custom Date Grid Event: ${props.title}</div>`;
-// };
-
-// const MyCustomMonthGridEvent: CustomComponentFn = (wrapperElement, props) => {
-//   // Your custom logic here
-//   wrapperElement.innerHTML = `<div>Custom Month Grid Event: ${props.title}</div>`;
-// };
-
-// const MyCustomMonthAgendaEvent: CustomComponentFn = (wrapperElement, props) => {
-//   // Your custom logic here
-//   wrapperElement.innerHTML = `<div>Custom Month Agenda Event: ${props.title}</div>`;
-// };
-
-// const MyCustomEventModal: CustomComponentFn = (wrapperElement, props) => {
-//   console.log('MyCustomEventModal', props)
-//   wrapperElement.innerHTML = `<div>Custom Event Modal: ${props.title}</div>`;
-// };
-
-// const customComponents: CustomComponentFns = {
-//   dateGridEvent: MyCustomDateGridEvent,
-//   monthGridEvent: MyCustomMonthGridEvent,
-//   monthAgendaEvent: MyCustomMonthAgendaEvent,
-//   eventModal: MyCustomEventModal,
-// };
+import { createViewMonthGrid, CalendarApp } from '@schedule-x/calendar';
+import { createEventModalPlugin } from '@schedule-x/event-modal';
+import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop';
 
 function App() {
   const eventsServicePlugin = useState(() => createEventsServicePlugin())[0];
-  const monthlyView = useState(() => createViewMonthGrid())[0]
-  const monthlyAgendaView = useState(() => createViewMonthAgenda())[0]
+  const monthView1 = useState(() => createViewMonthGrid())[0];
+  const monthView2 = useState(() => createViewMonthGrid())[0];
+  const monthView3 = useState(() => createViewMonthGrid())[0];
 
+  const currentDate = new Date();
+  const nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+  const thirdMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 1);
 
-  const calendar:CalendarApp = useCalendarApp({
-    views: [ viewWeek, monthlyView, monthlyAgendaView, viewMonthAgenda ],
+  const calendar1: CalendarApp = useCalendarApp({
+    views: [monthView1],
     events: [
       {
         id: uuidv4(),
+        resourceId: '1',
         title: 'Phyton course',
         start: '2025-01-10 04:00',
         end: '2025-01-15 06:00',
-        resourceId: '1',
         description: 'This is a Phyton course'
       },
       {
         id: uuidv4(),
-
+        resourceId: '2',
         title: 'Flash Event 2',
         start: '2025-01-10 01:00',
         end: '2025-01-15 12:00',
-        resourceId: '2'
+        description: 'This is a Flash Event 2'
       },
       {
         id: uuidv4(),
+        resourceId: '1',
         title: 'Master Course 1',
         start: '2025-01-10 09:00',
         end: '2025-01-15 11:00',
-        resourceId: '1'
       },
       {
         id: uuidv4(),
+        resourceId: '2',
         title: 'Master Course 2',
         start: '2025-01-10 13:00',
         end: '2025-01-15 15:00',
-        resourceId: '2'
       },
       {
         id: uuidv4(),
+        resourceId: '1',
         title: 'Cybersecurity Course 3',
         start: '2025-01-12 16:00',
         end: '2025-01-15 18:00',
-        resourceId: '1'
       }
     ],
-    selectedDate: new Date().toISOString().split('T')[0],
+    selectedDate: currentDate.toISOString().split('T')[0],
     plugins: [
       eventsServicePlugin,
       createEventModalPlugin(),
-      createDragAndDropPlugin()
-    ]
-  })
+      createDragAndDropPlugin(),
+    ],
+  });
+
+  const calendar2: CalendarApp = useCalendarApp({
+    views: [monthView2],
+    events: calendar1.events.getAll(),
+    selectedDate: nextMonthDate.toISOString().split('T')[0],
+    plugins: [
+      eventsServicePlugin,
+      createEventModalPlugin(),
+      createDragAndDropPlugin(),
+    ],
+  });
+
+  const calendar3: CalendarApp = useCalendarApp({
+    views: [monthView3],
+    events: calendar1.events.getAll(),
+    selectedDate: thirdMonthDate.toISOString().split('T')[0],
+    plugins: [
+      eventsServicePlugin,
+      createEventModalPlugin(),
+      createDragAndDropPlugin(),
+    ],
+  });
 
   return (
     <div className="sx-react-calendar-wrapper">
-      <ScheduleXCalendar calendarApp={calendar} />
+      <div className="calendar-container">
+        <div className="calendar-view">
+          <ScheduleXCalendar calendarApp={calendar1} />
+        </div>
+        <div className="calendar-view">
+          <ScheduleXCalendar calendarApp={calendar2} />
+        </div>
+        <div className="calendar-view">
+          <ScheduleXCalendar calendarApp={calendar3} />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-
-export default App
+export default App;

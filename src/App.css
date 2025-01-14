@@ -1,8 +1,9 @@
 .sx-react-calendar-wrapper {
-  width: 1300px;
   max-width: 150vw;
   height: 800px;
   max-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #root {
@@ -45,6 +46,20 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.calendar-container > div {
+  flex: 1;
+  margin: 0 10px;
+  width: 650px;
+  .sx__calendar-wrapper.sx__is-calendar-small{
+    width: 650px;
+  }
 }
 
 /* .sx__resource-view__grid-header-entities {
