@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './App.css'
 
@@ -6,8 +6,7 @@ import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
 import '@schedule-x/theme-default/dist/index.css'
 import '@sx-premium/resource-scheduler/index.css'
 import { createEventsServicePlugin } from "@schedule-x/events-service";
-import { createDailyView, createConfig } from '@sx-premium/resource-scheduler';
-import { viewWeek, viewMonthAgenda, createViewMonthGrid, createViewMonthAgenda, CustomComponentFn, CalendarApp } from '@schedule-x/calendar';
+import { viewWeek, viewMonthAgenda, createViewMonthGrid, createViewMonthAgenda, CalendarApp } from '@schedule-x/calendar';
 import { createEventModalPlugin } from '@schedule-x/event-modal'
 import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
 
@@ -41,61 +40,12 @@ import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
 
 function App() {
   const eventsServicePlugin = useState(() => createEventsServicePlugin())[0];
-  const resourceViewConfig = useState(() => createConfig())[0]
-
-  const dailyView = useState(() => createDailyView(resourceViewConfig))[0]
   const monthlyView = useState(() => createViewMonthGrid())[0]
   const monthlyAgendaView = useState(() => createViewMonthAgenda())[0]
 
-  useEffect(() => {
-    resourceViewConfig.resources.value = [
-      {
-        label: 'Instructor Dean',
-        id: '1'
-      },
-      // {
-      //   labelHTML: '<span>Instructor <strong>Dean</strong></span>',
-      //   id: '2',
-      //   colorName: 'room-101',
-      //   lightColors: {
-      //     main: '#1c7df9',
-      //     container: '#d2e7ff',
-      //     onContainer: '#002859'
-      //   },
-      //   darkColors: {
-      //     main: '#c0dfff',
-      //     onContainer: '#dee6ff',
-      //     container: '#426aa2'
-      //   }
-      // },
-      {
-        label: 'Professor Rio',
-        id: '2'
-      },
-      {
-        label: 'Beth Boland',
-        id: '2'
-      },
-      // {
-      //   labelHTML: '<span>Professor <strong>Rio</strong></span>',
-      //   id: '4',
-      //   colorName: 'room-102',
-      //   lightColors: {
-      //     main: '#1c7dd6',
-      //     container: '#d2e7ee',
-      //     onContainer: '#002823'
-      //   },
-      //   darkColors: {
-      //     main: '#c0dfee',
-      //     onContainer: '#dee6fd2',
-      //     container: '#426am9'
-      //   }
-      // }
-    ]
-  }, []);
 
   const calendar:CalendarApp = useCalendarApp({
-    views: [ dailyView, viewWeek, monthlyView, monthlyAgendaView, viewMonthAgenda ],
+    views: [ viewWeek, monthlyView, monthlyAgendaView, viewMonthAgenda ],
     events: [
       {
         id: uuidv4(),
