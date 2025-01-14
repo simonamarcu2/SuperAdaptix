@@ -1,14 +1,14 @@
 .sx-react-calendar-wrapper {
-  width: 1200px;
-  max-width: 100vw;
+  width: 1300px;
+  max-width: 150vw;
   height: 800px;
   max-height: 90vh;
 }
 
 #root {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .logo {
@@ -46,3 +46,28 @@
 .read-the-docs {
   color: #888;
 }
+
+/* .sx__resource-view__grid-header-entities {
+  .sx__resource-view__lazy-loader  {
+  width: 20px !important;
+}
+.is-visible {
+  width: 20px !important;
+}
+}
+.sx__resource-view__lazy-loader.sx__lazy-column {
+  width: 10px !important;
+  .is-visible{
+    width: 10px !important;
+  }
+  .sx__resource-view__grid-stage__column {
+    width: 10px !important;
+    .sx__resource-view__grid-stage__row{
+      width: 10px !important;
+    }
+    
+    .sx__resource-view__grid-stage__row::after {
+      width: 10px !important;
+    }
+    }
+  } */
