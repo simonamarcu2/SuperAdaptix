@@ -89,6 +89,23 @@ function App() {
     ],
   });
 
+  const [tags, setTags] = useState({
+    instructor: [],
+    course: [],
+    status: []
+  });
+
+  const [newTag, setNewTag] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('instructor');
+
+  const handleAddTag = () => {
+    setTags(prevTags => ({
+      ...prevTags,
+      [selectedCategory]: [...prevTags[selectedCategory], newTag]
+    }));
+    setNewTag('');
+  };
+
   return (
     <div className="sx-react-calendar-wrapper">
       <div className="calendar-container">
@@ -101,6 +118,20 @@ function App() {
         <div className="calendar-view">
           <ScheduleXCalendar calendarApp={calendar3} />
         </div>
+      </div>
+      <div className="tag-creation">
+        <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+          <option value="instructor">Instructor</option>
+          <option value="course">Course</option>
+          <option value="status">Status</option>
+        </select>
+        <input
+          type="text"
+          value={newTag}
+          onChange={(e) => setNewTag(e.target.value)}
+          placeholder="Enter new tag"
+        />
+        <button onClick={handleAddTag}>Add Tag</button>
       </div>
     </div>
   );
