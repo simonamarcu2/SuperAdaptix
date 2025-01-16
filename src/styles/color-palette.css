@@ -35,4 +35,8 @@
   --sx-internal-color-gray-ripple-background: #e0e0e0;
   --sx-internal-color-light-gray: #fafafa;
   --sx-internal-color-text: #000;
+
+  --color-instructor-red: #FF0000;
+  --color-course-green: #00FF00;
+  --color-status-blue: #0000FF;
 }
