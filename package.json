@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/lab": "^6.0.0-beta.23",
     "@schedule-x/calendar": "^2.13.0",
     "@schedule-x/drag-and-drop": "^2.13.0",
     "@schedule-x/event-modal": "^2.13.0",
