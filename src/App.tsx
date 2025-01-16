@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './styles/App.css';
 import TagsComponent from './components/tags';
+import EventModal from './components/EventModal';
 import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
 import '@schedule-x/theme-default/dist/index.css';
 import { createEventsServicePlugin } from "@schedule-x/events-service";
@@ -18,6 +19,24 @@ const App = () => {
   const currentDate = new Date();
   const nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
   const thirdMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 1);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleDateClick = (date) => {
+    setSelectedEvent({
+      start: date,
+      end: date,
+      title: '',
+      allDay: false,
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleSaveEvent = (event) => {
+    // Save event logic here
+    setIsModalOpen(false);
+  };
 
   const calendar1: CalendarApp = useCalendarApp({
     views: [monthView1],
@@ -63,7 +82,9 @@ const App = () => {
     selectedDate: currentDate.toISOString().split('T')[0],
     plugins: [
       eventsServicePlugin,
-      createEventModalPlugin(),
+      createEventModalPlugin({
+        onDateClick: handleDateClick,
+      }),
       createDragAndDropPlugin(),
     ],
   });
@@ -74,7 +95,9 @@ const App = () => {
     selectedDate: nextMonthDate.toISOString().split('T')[0],
     plugins: [
       eventsServicePlugin,
-      createEventModalPlugin(),
+      createEventModalPlugin({
+        onDateClick: handleDateClick,
+      }),
       createDragAndDropPlugin(),
     ],
   });
@@ -85,7 +108,9 @@ const App = () => {
     selectedDate: thirdMonthDate.toISOString().split('T')[0],
     plugins: [
       eventsServicePlugin,
-      createEventModalPlugin(),
+      createEventModalPlugin({
+        onDateClick: handleDateClick,
+      }),
       createDragAndDropPlugin(),
     ],
   });
@@ -96,7 +121,6 @@ const App = () => {
           <TagsComponent />
         <div className="calendar-view">
           <ScheduleXCalendar calendarApp={calendar1} />
-
         </div>
         <div className="calendar-view">
           <ScheduleXCalendar calendarApp={calendar2} />
@@ -105,6 +129,12 @@ const App = () => {
           <ScheduleXCalendar calendarApp={calendar3} />
         </div>
       </div>
+      <EventModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        event={selectedEvent}
+        onSave={handleSaveEvent}
+      />
     </div>
   );
 }
