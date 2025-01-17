@@ -1,111 +1,74 @@
 import React, { useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem, Select, InputLabel, FormControl, TextFieldProps } from '@mui/material';
-import {  DatePicker } from '@mui/lab';
+import { Modal, Button, Input, Tag, Select, DatePicker } from 'antd';
 
-interface EventDialogProps {
-    open: boolean;
-    onClose: () => void;
-    instructors: string[];
-    courses: string[];
-}
-
-const EventDialog: React.FC<EventDialogProps> = ({ open, onClose, instructors, courses }) => {
-    const [title, setTitle] = useState('');
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
-    const [tags, setTags] = useState<string[]>([]);
-    const [status, setStatus] = useState('');
-
-    const handleSave = () => {
-        // Handle save logic here
-        onClose();
-    };
-
-    return (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Create Event</DialogTitle>
-            <DialogContent>
-                <TextField
-                    label="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                />
-                <DatePicker
-                    label="Start Date"
-                    value={startDate}
-                    onChange={(date: Date | null) => setStartDate(date)}
-                    renderInput={(params: TextFieldProps) => <TextField {...params} fullWidth margin="normal" />}
-                />
-                <DatePicker
-                    label="End Date"
-                    value={endDate}
-                    onChange={(date: Date | null) => setEndDate(date)}
-                    renderInput={(params: TextFieldProps) => <TextField {...params} fullWidth margin="normal" />}
-                />
-                <FormControl fullWidth margin="normal">
-                    <InputLabel>Tags</InputLabel>
-                    <Select
-                        multiple
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value as string[])}
-                    >
-                        {instructors.map((instructor) => (
-                            <MenuItem key={instructor} value={instructor}>
-                                {instructor}
-                            </MenuItem>
-                        ))}
-                        {courses.map((course) => (
-                            <MenuItem key={course} value={course}>
-                                {course}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <FormControl fullWidth margin="normal">
-                    <InputLabel>Status</InputLabel>
-                    <Select
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                    >
-                        <MenuItem value="Planned">Planned</MenuItem>
-                        <MenuItem value="Completed">Completed</MenuItem>
-                        <MenuItem value="Cancelled">Cancelled</MenuItem>
-                    </Select>
-                </FormControl>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={handleSave} color="primary">Save</Button>
-            </DialogActions>
-        </Dialog>
-    );
-};
+const { Option } = Select;
 
 const CourseEvent: React.FC = () => {
-    const [dialogOpen, setDialogOpen] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [tags, setTags] = useState<string[]>([]);
+    const [inputValue, setInputValue] = useState('');
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-    const handleDayClick = () => {
-        setDialogOpen(true);
+    const showModal = () => {
+        setIsModalVisible(true);
     };
 
-    const handleClose = () => {
-        setDialogOpen(false);
+    const handleOk = () => {
+        setIsModalVisible(false);
     };
 
-    const instructors = ['Instructor 1', 'Instructor 2', 'Instructor 3'];
-    const courses = ['Course 1', 'Course 2', 'Course 3'];
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleTagChange = (value: string[]) => {
+        setTags(value);
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleDateChange = (date: any, dateString: string) => {
+        setSelectedDate(dateString);
+    };
+
+    const addTag = () => {
+        if (inputValue && !tags.includes(inputValue)) {
+            setTags([...tags, inputValue]);
+            setInputValue('');
+        }
+    };
 
     return (
         <div>
-            <Button onClick={handleDayClick}>Click a day to create an event</Button>
-            <EventDialog
-                open={dialogOpen}
-                onClose={handleClose}
-                instructors={instructors}
-                courses={courses}
-            />
+            <DatePicker onChange={handleDateChange} onClick={showModal} />
+            <Modal title="Course Event" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <div>
+                    <h3>Tags by Category</h3>
+                    <Select mode="tags" style={{ width: '100%' }} placeholder="Tags" value={tags} onChange={handleTagChange}>
+                        {tags.map(tag => (
+                            <Option key={tag}>{tag}</Option>
+                        ))}
+                    </Select>
+                    <Input
+                        type="text"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onPressEnter={addTag}
+                        placeholder="Add a tag"
+                    />
+                    <Button onClick={addTag}>Add Tag</Button>
+                </div>
+                <div style={{ marginTop: '20px' }}>
+                    <Button type="primary" onClick={handleOk}>
+                        Save
+                    </Button>
+                    <Button onClick={handleCancel} style={{ marginLeft: '10px' }}>
+                        Close
+                    </Button>
+                </div>
+            </Modal>
         </div>
     );
 };

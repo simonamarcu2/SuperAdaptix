@@ -18,6 +18,7 @@
     "@schedule-x/events-service": "^2.6.0",
     "@schedule-x/react": "^2.5.0",
     "@schedule-x/theme-default": "^2.6.0",
+    "antd": "^5.23.1",
     "jquery": "^3.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@types/antd": "^0.12.32",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",

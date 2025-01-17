@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 import './styles/App.css';
 import TagsComponent from './components/tags';
 import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
@@ -8,9 +7,11 @@ import { createEventsServicePlugin } from "@schedule-x/events-service";
 import { createViewMonthGrid, CalendarApp } from '@schedule-x/calendar';
 import { createEventModalPlugin } from '@schedule-x/event-modal';
 import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop';
+import { EventsProvider, events } from './context/TagsContext';
 
 const App = () => {
   const eventsServicePlugin = useState(() => createEventsServicePlugin())[0];
+  
   const monthView1 = useState(() => createViewMonthGrid())[0];
   const monthView2 = useState(() => createViewMonthGrid())[0];
   const monthView3 = useState(() => createViewMonthGrid())[0];
@@ -21,45 +22,7 @@ const App = () => {
 
   const calendar1: CalendarApp = useCalendarApp({
     views: [monthView1],
-    events: [
-      {
-        id: uuidv4(),
-        resourceId: '1',
-        title: 'Phyton course',
-        start: '2025-01-13',
-        end: '2025-01-17',
-        description: 'This is a Phyton course'
-      },
-      {
-        id: uuidv4(),
-        resourceId: '2',
-        title: 'Flash Event 2',
-        start: '2025-01-13',
-        end: '2025-01-24',
-        description: 'This is a Flash Event 2'
-      },
-      {
-        id: uuidv4(),
-        resourceId: '1',
-        title: 'Master Course 1',
-        start: '2025-01-24',
-        end: '2025-01-31',
-      },
-      {
-        id: uuidv4(),
-        resourceId: '2',
-        title: 'Master Course 2',
-        start: '2025-01-13',
-        end: '2025-02-15',
-      },
-      {
-        id: uuidv4(),
-        resourceId: '1',
-        title: 'Cybersecurity Course 3',
-        start: '2025-01-12',
-        end: '2025-03-22',
-      }
-    ],
+    events: events,
     selectedDate: currentDate.toISOString().split('T')[0],
     plugins: [
       eventsServicePlugin,
@@ -89,22 +52,22 @@ const App = () => {
       createDragAndDropPlugin(),
     ],
   });
-
   return (
     <div className="sx-react-calendar-wrapper">
-      <div className="calendar-container">
+      <EventsProvider>
+        <div className="calendar-container">
           <TagsComponent />
-        <div className="calendar-view">
-          <ScheduleXCalendar calendarApp={calendar1} />
-
+          <div className="calendar-view">
+            <ScheduleXCalendar calendarApp={calendar1} />
+          </div>
+          <div className="calendar-view">
+            <ScheduleXCalendar calendarApp={calendar2} />
+          </div>
+          <div className="calendar-view">
+            <ScheduleXCalendar calendarApp={calendar3} />
+          </div>
         </div>
-        <div className="calendar-view">
-          <ScheduleXCalendar calendarApp={calendar2} />
-        </div>
-        <div className="calendar-view">
-          <ScheduleXCalendar calendarApp={calendar3} />
-        </div>
-      </div>
+      </EventsProvider>
     </div>
   );
 }

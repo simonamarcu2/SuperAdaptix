@@ -38,6 +38,7 @@ function TagsComponent() {
   const [selectedCategory, setSelectedCategory] = useState<{ value: keyof Tags, label: string } | null>(categoryOptions[0]);
   const [newTag, setNewTag] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const savedTags = loadTagsFromLocalStorage();
@@ -47,6 +48,17 @@ function TagsComponent() {
   }, []);
 
   const handleAddTag = () => {
+    if (!newTag.trim()) {
+      setError('Tag name cannot be empty.');
+      return;
+    }
+
+    const allTags = [...tags.instructor, ...tags.course, ...tags.status].map(tag => tag.name);
+    if (allTags.includes(newTag)) {
+      setError('Tag already exists.');
+      return;
+    }
+
     if (selectedCategory) {
       const color = selectedCategory.value === 'instructor' ? 'red' :
                     selectedCategory.value === 'course' ? 'green' : 'blue';
@@ -57,6 +69,7 @@ function TagsComponent() {
       setTags(updatedTags);
       saveTagsToLocalStorage(updatedTags);
       setNewTag('');
+      setError(null);
       setIsModalOpen(false);
     }
   };
@@ -70,13 +83,19 @@ function TagsComponent() {
     return savedTags ? JSON.parse(savedTags) : null;
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setError(null);
+    setNewTag('');
+  };
+
   return (
     <div>
       <button className='add-tag-btn' onClick={() => setIsModalOpen(true)}>Add Tag</button>
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-wrapper">
-              <button className="modal-close" onClick={() => setIsModalOpen(false)}>x</button>
+            <button className="modal-close" onClick={handleCloseModal}>x</button>
             <div className="modal-content">
               <h2>Add New Tag</h2>
               <input
@@ -85,15 +104,16 @@ function TagsComponent() {
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 placeholder='Enter tag name'
-              />
+                />
               <Select
                 placeholder='Select category'
                 className='tag-select'
                 value={selectedCategory}
                 onChange={setSelectedCategory}
                 options={categoryOptions}
-              />
+                />
               <button className="save-tag" onClick={handleAddTag}>Save Tag</button>
+                {error && <p className="error-message">{error}</p>}
             </div>
           </div>
         </div>
