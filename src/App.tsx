@@ -54,7 +54,6 @@ const App = () => {
   });
   return (
     <div className="sx-react-calendar-wrapper">
-      <EventsProvider>
         <div className="calendar-container">
           <TagsComponent />
           <div className="calendar-view">
@@ -67,7 +66,6 @@ const App = () => {
             <ScheduleXCalendar calendarApp={calendar3} />
           </div>
         </div>
-      </EventsProvider>
     </div>
   );
 }
