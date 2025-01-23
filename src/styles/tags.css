@@ -7,6 +7,35 @@
   cursor: pointer;
 }
 
+.tag-creation {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tag-creation select {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.tag-creation input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.tag-creation button {
+  padding: 5px 10px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tag-creation button:hover {
+  background-color: #646cff;
+}
+
 .modal-overlay {
   position: fixed;
   z-index: 100;
@@ -56,7 +85,7 @@ h2 {
   color: black;
 }
 
-.tag-input{
+.tag-input {
   color: black;
   font-size: 1rem;
   font-weight: 400;
@@ -71,13 +100,14 @@ h2 {
 .tag-select {
   color: black;
   margin: 20px 0;
+
   .css-1nmdiq5-menu:selected {
     background-color: var(--color-light-blue);
     border-radius: 4px;
   }
 }
 
-.save-tag{
+.save-tag {
   background-color: var(--color-light-green);
   color: black;
   border: 1px solid black;
@@ -109,6 +139,7 @@ h2 {
   border-radius: 5px;
   margin: 5px;
 }
+
 .error-message {
   color: red;
 }

@@ -13,6 +13,7 @@
   padding: 1rem;
 }
 
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -56,38 +57,9 @@
 
 .calendar-container > div {
   flex: 1;
-  margin: 0 10px;
+  margin: 0;
   width: 650px;
-  .sx__calendar-wrapper.sx__is-calendar-small{
-    width: 650px;
-  }
 }
-
-.tag-creation {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.tag-creation select {
-  margin-right: 10px;
-  padding: 5px;
-}
-
-.tag-creation input {
-  margin-right: 10px;
-  padding: 5px;
-}
-
-.tag-creation button {
-  padding: 5px 10px;
-  background-color: #1a1a1a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.tag-creation button:hover {
-  background-color: #646cff;
+.sx__calendar-wrapper.sx__is-calendar-small{
+  width: 650px;
 }
